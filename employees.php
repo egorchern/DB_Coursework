@@ -63,45 +63,98 @@
         <form action="addEmployee.php" class="shadow" method="POST">
             <h2 style="width:100%;text-align:center">Add Employee</h2>
             <div class="margin-sm">
-                <label for="id" class="form-label">Id</label>
-                <input type="text" class="form-control" id="id" name="id">
+                <label for="number" class="form-label">Number (id)</label>
+                <input type="text" class="form-control" required id="number" name="number">
             </div>
             <div class="margin-sm">
                 <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" name="name">
+                <input type="text" class="form-control" required id="name" name="name">
             </div>
             <div class="margin-sm">
-                <label for="address" class="form-label">Address</label>
-                <input type="text" class="form-control" id="empAddress" name="address">
+                <label for="homeAddress" class="form-label">Address</label>
+                <input type="text" class="form-control" required id="homeAddress" name="homeAddress">
             </div>
             <div class="margin-sm">
                 <label for="salary" class="form-label">Salary </label>
-                <input type="text" class="form-control" id="salary" name="salary">
+                <input type="text" class="form-control" required   id="salary" name="salary">
             </div>
             <div class="margin-sm">
                 <label for="dob" class="form-label">Date of Birth</label>
-                <input type="date" class="form-control" id="dob" name="dob">
+                <input type="date" class="form-control" required id="dob" name="dob">
             </div>
             <div class="margin-sm">
                 <label for="nin" class="form-label">National Insurance Number </label>
-                <input type="text" class="form-control" id="nin" name="nin">
+                <input type="text" class="form-control" required id="nin" name="nin">
             </div>
             <div class="margin-sm">
                 <label for="eName" class="form-label">Emergency Contact Name</label>
-                <input type="text" class="form-control" id="eName" name="eName">
+                <input type="text" class="form-control" required id="eName" name="eName">
             </div>
             <div class="margin-sm">
                 <label for="eRelationship" class="form-label">Emergency Contact Relationship</label>
-                <input type="text" class="form-control" id="eRelationship" name="eRelationship">
+                <input type="text" class="form-control" required id="eRelationship" name="eRelationship">
             </div>
             <div class="margin-sm">
                 <label for="ePhone" class="form-label">Emergency Contact Phone Number</label>
-                <input type="text" class="form-control" id="ePhone" name="ePhone">
+                <input type="text" class="form-control" required id="ePhone" name="ePhone">
             </div>
             <div class="margin-sm">
                 <label for="departmentNumber" class="form-label">Department</label>
                 
                 <select class="form-select" id="departmentNumber" name="departmentNumber">
+                    <option value="1">HR</option>
+                    <option value="2">Driver</option>
+                    <option value="3">Packager</option>
+                    <option value="4">Manager</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        <form action="updateEmployee.php" class="shadow" method="POST">
+            <h2 style="width:100%;text-align:center">Update employee</h2>
+            <p style="width:100%;text-align:center">Blank fields will be unchanged</p>
+            <div class="margin-sm">
+                <label for="number" class="form-label">Number (id)</label>
+                <input type="text" class="form-control" required id="number" name="number">
+            </div>
+            <div class="margin-sm">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control"  id="name" name="name">
+            </div>
+            <div class="margin-sm">
+                <label for="homeAddress" class="form-label">Address</label>
+                <input type="text" class="form-control"  id="homeAddress" name="homeAddress">
+            </div>
+            <div class="margin-sm">
+                <label for="salary" class="form-label">Salary </label>
+                <input type="text" class="form-control"    id="salary" name="salary">
+            </div>
+            <div class="margin-sm">
+                <label for="dob" class="form-label">Date of Birth</label>
+                <input type="date" class="form-control"  id="dob" name="dob">
+            </div>
+            <div class="margin-sm">
+                <label for="nin" class="form-label">National Insurance Number </label>
+                <input type="text" class="form-control"  id="nin" name="nin">
+            </div>
+            <div class="margin-sm">
+                <label for="eName" class="form-label">Emergency Contact Name</label>
+                <input type="text" class="form-control"  id="eName" name="eName">
+            </div>
+            <div class="margin-sm">
+                <label for="eRelationship" class="form-label">Emergency Contact Relationship</label>
+                <input type="text" class="form-control"  id="eRelationship" name="eRelationship">
+            </div>
+            <div class="margin-sm">
+                <label for="ePhone" class="form-label">Emergency Contact Phone Number</label>
+                <input type="text" class="form-control"  id="ePhone" name="ePhone">
+            </div>
+            <div class="margin-sm">
+                <label for="departmentNumber" class="form-label">Department</label>
+                
+                <select class="form-select" id="departmentNumber" name="departmentNumber">
+                    <option value="-1">Unchanged</option>
                     <option value="1">HR</option>
                     <option value="2">Driver</option>
                     <option value="3">Packager</option>
