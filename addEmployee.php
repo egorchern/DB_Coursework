@@ -9,19 +9,11 @@
             echo "<br>";
         }
         $sql = "
-        INSERT INTO employee(Number, Name, HomeAddress, Salary, DOB, NIN, DepartmentNumber)
-        VALUES(:Number, :Name, :HomeAddress, :Salary, :DOB, :NIN, :departmentNumber);
+        INSERT INTO employee(Number, Name, HomeAddress, Salary, DOB, NIN, DepartmentNumber, EName, ERelationship, EPhone)
+        VALUES(:number, :name, :homeAddress, :salary, :dob, :nin, :departmentNumber, :eName, :eRelationship, :ePhone);
         ";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([
-            "Number" => $_POST["id"],
-            "Name" => $_POST["name"],
-            "HomeAddress" => $_POST["address"],
-            "Salary" => $_POST["salary"],
-            "DOB" => $_POST["dob"],
-            "NIN" => $_POST["nin"],
-            "departmentNumber" => $_POST["departmentNumber"]
-        ]);
+        $stmt->execute($_POST);
         
     }
     addEmployee();

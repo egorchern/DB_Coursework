@@ -103,9 +103,9 @@
                 
                 <select class="form-select" id="departmentNumber" name="departmentNumber">
                     <option value="1">HR</option>
-                    <option value="2">Driver</option>
-                    <option value="3">Packager</option>
-                    <option value="4">Manager</option>
+                    <option value="2">Driving</option>
+                    <option value="3">Packaging</option>
+                    <option value="4">Managment</option>
                 </select>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -156,9 +156,9 @@
                 <select class="form-select" id="departmentNumber" name="departmentNumber">
                     <option value="-1">Unchanged</option>
                     <option value="1">HR</option>
-                    <option value="2">Driver</option>
-                    <option value="3">Packager</option>
-                    <option value="4">Manager</option>
+                    <option value="2">Driving</option>
+                    <option value="3">Packaging</option>
+                    <option value="4">Managment</option>
                 </select>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -208,9 +208,9 @@
                 <select class="form-select" id="departmentNumber" name="departmentNumber">
                     <option value="-1">Any</option>
                     <option value="1">HR</option>
-                    <option value="2">Driver</option>
-                    <option value="3">Packager</option>
-                    <option value="4">Manager</option>
+                    <option value="2">Driving</option>
+                    <option value="3">Packaging</option>
+                    <option value="4">Managment</option>
                 </select>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>

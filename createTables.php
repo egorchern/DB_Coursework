@@ -83,33 +83,24 @@ function createEmployeeTable()
                 Number INT NOT NULL,
                 Name VARCHAR(500) NOT NULL,
                 HomeAddress VARCHAR(1000) NOT NULL,
-                Salary INT NOT NULL,
+                Salary FLOAT NOT NULL,
                 DOB DATE NOT NULL,
                 NIN VARCHAR(12) NOT NULL,
                 ManagerEmpNumber INT,
                 DepartmentNumber INT NOT NULL,
+                EPhone VARCHAR(30) NOT NULL,
+                ERelationship VARCHAR(100) NOT NULL,
+                EName VARCHAR(200) NOT NULL,
                 PRIMARY KEY(Number),
-                FOREIGN KEY(ManagerEmpNumber) REFERENCES Manager(EmployeeNumber) ON DELETE RESTRICT ON UPDATE RESTRICT
+                FOREIGN KEY(ManagerEmpNumber) REFERENCES Manager(EmployeeNumber) ON DELETE RESTRICT ON UPDATE RESTRICT,
+                FOREIGN KEY(DepartmentNumber) REFERENCES Department(DepartmentNumber) ON DELETE RESTRICT ON UPDATE RESTRICT
                 
                 
             );
         ";
     $pdo->exec($sql);
 }
-function createEmergencyContactNameTable()
-{
-    global $pdo;
-    $sql = "
-            CREATE TABLE IF NOT EXISTS EmergencyContactName(
-                PhoneNumber VARCHAR(30) NOT NULL,
-                Name VARCHAR(200) NOT NULL,
-                PRIMARY KEY(PhoneNumber)
-                
-                
-            );
-        ";
-    $pdo->exec($sql);
-}
+
 function createDepartmentTable()
 {
     global $pdo;
@@ -117,7 +108,7 @@ function createDepartmentTable()
             CREATE TABLE IF NOT EXISTS Department(
                 DepartmentNumber INT NOT NULL,
                 Name VARCHAR(200) NOT NULL,
-                ManagerEmployeeNumber INT NOT NULL,
+                ManagerEmployeeNumber INT,
                 PRIMARY KEY(DepartmentNumber),
                 FOREIGN KEY (ManagerEmployeeNumber) REFERENCES Manager(EmployeeNumber) ON DELETE RESTRICT ON UPDATE RESTRICT
                 
@@ -126,23 +117,7 @@ function createDepartmentTable()
         ";
     $pdo->exec($sql);
 }
-function createEmergencyContactTable()
-{
-    global $pdo;
-    $sql = "
-            CREATE TABLE IF NOT EXISTS EmergencyContact(
-                EmployeeNumber INT NOT NULL,
-                Relationship VARCHAR(100) NOT NULL,
-                PhoneNumber VARCHAR(30) NOT NULL,
-                PRIMARY KEY(EmployeeNumber),
-                FOREIGN KEY(EmployeeNumber) REFERENCES Employee(Number) ON DELETE CASCADE ON UPDATE CASCADE,
-                FOREIGN KEY(PhoneNumber) REFERENCES EmergencyContactName(PhoneNumber) ON DELETE CASCADE ON UPDATE CASCADE
-                
-                
-            );
-        ";
-    $pdo->exec($sql);
-}
+
 function createHoursTable()
 {
     global $pdo;
@@ -335,18 +310,51 @@ function createWarehouseProduct()
         ";
     $pdo->exec($sql);
 }
+function insertDepartment($department){
+    global $pdo;
+    $sql = "
+    INSERT INTO Department(departmentNumber, name)
+    VALUES(:departmentNumber, :name)
+    ";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute($department);
+}
+function insertDepartments(){
+    global $pdo;
+    $departments = [
+        [
+            "departmentNumber" => 1,
+            "name" => "HR"
+        ],
+        [
+            "departmentNumber" => 2,
+            "name" => "Driving"
+        ],
+        [
+            "departmentNumber" => 3,
+            "name" => "Packaging"
+        ],
+        [
+            "departmentNumber" => 4,
+            "name" => "Managment"
+        ],
+    ];
+    foreach($departments as $department){
+        insertDepartment($department);
+    }
+    
+}
 deleteDB();
 createDB();
 $pdo->exec("USE Kilburnazon");
 createManagerTable();
 createDriverTable();
 createHRSpecialistTable();
+createDepartmentTable();
 createEmployeeTable();
 createComplaintTable();
 createComplaintReasonTable();
-createEmergencyContactNameTable();
-createEmergencyContactTable();
-createDepartmentTable();
+
 createHoursTable();
 createVehicleTable();
 createRouteTable();
@@ -359,4 +367,5 @@ createOrderTable();
 createProductTable();
 createOrderProductsTable();
 createWarehouseProduct();
+insertDepartments();
 ?>
