@@ -86,7 +86,7 @@ function createEmployeeTable()
                 Salary INT NOT NULL,
                 DOB DATE NOT NULL,
                 NIN VARCHAR(12) NOT NULL,
-                ManagerEmpNumber INT NOT NULL,
+                ManagerEmpNumber INT,
                 DepartmentNumber INT NOT NULL,
                 PRIMARY KEY(Number),
                 FOREIGN KEY(ManagerEmpNumber) REFERENCES Manager(EmployeeNumber) ON DELETE RESTRICT ON UPDATE RESTRICT
