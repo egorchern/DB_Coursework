@@ -97,7 +97,10 @@
 <body>
     <h1 style="text-align:center">Matching employees</h1>
     <?php
-        searchEmployee();
+        if(count($_POST) != 0){
+            searchEmployee();
+        }
+        
     ?>
 </body>
 </html>

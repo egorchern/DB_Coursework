@@ -47,7 +47,13 @@
             border-radius: 12px;
             max-width: 750px;
         }
-
+        main{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
         .margin-sm {
             margin: 0.4rem;
         }
@@ -221,6 +227,12 @@
                 <label for="number" class="form-label">Number (id)</label>
                 <input type="text" class="form-control" required id="number" name="number">
             </div>
+            
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <form action="showBirthdayEmp.php" class="shadow" method="POST">
+            <h2 style="width:100%;text-align:center">Show employees with birthdays soon</h2>
+            <p style="width:100%;text-align:center">Shows employees that have birthday in the current month</p>
             
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>

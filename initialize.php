@@ -88,7 +88,7 @@ function createEmployeeTable()
                 DOB DATE NOT NULL,
                 NIN VARCHAR(12) NOT NULL,
                 ManagerEmpNumber INT,
-                DepartmentNumber INT NOT NULL,
+                DepartmentNumber INT,
                 EPhone VARCHAR(30) NOT NULL,
                 ERelationship VARCHAR(100) NOT NULL,
                 EName VARCHAR(200) NOT NULL,
@@ -345,6 +345,36 @@ function insertDepartments(){
     }
     
 }
+function createBirthdaysProcedure(){
+    global $pdo;
+    $sql = "
+    CREATE PROCEDURE `getEmployeesWithBirthdayM`()
+    SELECT * FROM employee WHERE MONTH(DOB) = MONTH(CURDATE()) ORDER BY DOB
+    ";
+    $pdo->exec($sql);
+}
+function createEmployeeDeleteTrigger(){
+    global $pdo;
+    $sql = "
+    CREATE TRIGGER `insert_termination_audit` BEFORE DELETE ON `employee`
+    FOR EACH ROW INSERT INTO terminationaudit
+    VALUES(CURRENT_DATE, CURRENT_TIME, OLD.Number, OLD.ManagerEmpNumber)
+    ";
+    $pdo->exec($sql);
+}
+function createAuditingTable(){
+    global $pdo;
+    $sql = "
+    CREATE TABLE TerminationAudit(
+        curDate DATE NOT NULL,
+        curTime TIME NOT NULL,
+        terminatedEmpNumber VARCHAR(20) NOT NULL,
+        terminatingEmpNumber VARCHAR(20),
+        PRIMARY KEY(terminatedEmpNumber, curDate, curTime)
+    );
+    ";
+    $pdo->exec($sql);
+}
 function addEmployee($params){
     global $pdo;
     // $params["number"] = substr($params["number"], 0, 2) . substr($params["number"], 3);
@@ -424,9 +454,12 @@ createBuildingTable();
 createWarehouseTable();
 createCustomerTable();
 createOrderTable();
+createAuditingTable();
 createProductTable();
 createOrderProductsTable();
+createEmployeeDeleteTrigger();
 createWarehouseProduct();
+createBirthdaysProcedure();
 insertDepartments();
 insertEmployeeCSV();
 ?>
