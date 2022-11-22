@@ -30,13 +30,13 @@
                             $val = "HR";
                             break;
                         case 2:
-                            $val = "Driving";
+                            $val = "Driver";
                             break;
                         case 3:
-                            $val = "Packaging";
+                            $val = "Packager";
                             break;
                         case 4: 
-                            $val = "Managment";
+                            $val = "Manager";
                             break;
                     }
                 }

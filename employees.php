@@ -103,9 +103,9 @@
                 
                 <select class="form-select" id="departmentNumber" name="departmentNumber">
                     <option value="1">HR</option>
-                    <option value="2">Driving</option>
-                    <option value="3">Packaging</option>
-                    <option value="4">Managment</option>
+                    <option value="2">Driver</option>
+                    <option value="3">Packager</option>
+                    <option value="4">Manager</option>
                 </select>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -156,9 +156,9 @@
                 <select class="form-select" id="departmentNumber" name="departmentNumber">
                     <option value="-1">Unchanged</option>
                     <option value="1">HR</option>
-                    <option value="2">Driving</option>
-                    <option value="3">Packaging</option>
-                    <option value="4">Managment</option>
+                    <option value="2">Driver</option>
+                    <option value="3">Packager</option>
+                    <option value="4">Manager</option>
                 </select>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -208,11 +208,20 @@
                 <select class="form-select" id="departmentNumber" name="departmentNumber">
                     <option value="-1">Any</option>
                     <option value="1">HR</option>
-                    <option value="2">Driving</option>
-                    <option value="3">Packaging</option>
-                    <option value="4">Managment</option>
+                    <option value="2">Driver</option>
+                    <option value="3">Packager</option>
+                    <option value="4">Manager</option>
                 </select>
             </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <form action="deleteEmployee.php" class="shadow" method="POST">
+            <h2 style="width:100%;text-align:center">Delete Employee</h2>
+            <div class="margin-sm">
+                <label for="number" class="form-label">Number (id)</label>
+                <input type="text" class="form-control" required id="number" name="number">
+            </div>
+            
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </main>

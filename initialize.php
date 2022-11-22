@@ -1,6 +1,7 @@
 <?php
 $pdo = new pdo('mysql:host=localhost', 'root', '123qweasdzxc');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+// require_once('addEmployee.php');
 function deleteDB()
 {
     global $pdo;
@@ -80,7 +81,7 @@ function createEmployeeTable()
     global $pdo;
     $sql = "
             CREATE TABLE IF NOT EXISTS Employee(
-                Number INT NOT NULL,
+                Number BIGINT NOT NULL,
                 Name VARCHAR(500) NOT NULL,
                 HomeAddress VARCHAR(1000) NOT NULL,
                 Salary FLOAT NOT NULL,
@@ -344,6 +345,62 @@ function insertDepartments(){
     }
     
 }
+function addEmployee($params){
+    global $pdo;
+    $sql = "
+    INSERT INTO employee(Number, Name, HomeAddress, Salary, DOB, NIN, DepartmentNumber, EName, ERelationship, EPhone)
+    VALUES(:number, :name, :homeAddress, :salary, :dob, :nin, :departmentNumber, :eName, :eRelationship, :ePhone);
+    ";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute($params);
+    
+}
+function insertEmployeeCSV(){
+    
+    $csvFile = file('employees.csv');
+    $data = [];
+    $skip = true;
+    foreach ($csvFile as $line) {
+        if($skip){
+            $skip = false;
+            continue;
+        }
+        $data = str_getcsv($line);
+        $departmentNumber = 1;
+        switch($data[6]){
+            case ("HR"):
+                $departmentNumber = 1;
+                break;
+            case ("Packager"):
+                $departmentNumber = 3;
+                break;
+            case ("Driver"):
+                $departmentNumber = 2;
+                break;
+            case ("Managment"):
+                $departmentNumber = 4;
+                break;
+        }
+        $data[0] = substr($data[0], 0, 2) . substr($data[0], 3);
+        $data[3] = substr($data[3], 1);
+        print_r($data);
+        $params = [
+            "number" => $data[0],
+            "name" => $data[1],
+            "homeAddress" => $data[2],
+            "salary" => $data[3],
+            "dob" => $data[4],
+            "nin" => $data[5],
+            "departmentNumber" => $departmentNumber,
+            "eName" => $data[7],
+            "eRelationship" => $data[8],
+            "ePhone" => $data[9]
+        ];
+        addEmployee($params);
+    }
+    
+    
+}
 deleteDB();
 createDB();
 $pdo->exec("USE Kilburnazon");
@@ -368,4 +425,5 @@ createProductTable();
 createOrderProductsTable();
 createWarehouseProduct();
 insertDepartments();
+insertEmployeeCSV();
 ?>
