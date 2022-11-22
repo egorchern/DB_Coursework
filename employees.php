@@ -70,7 +70,7 @@
             <h2 style="width:100%;text-align:center">Add Employee</h2>
             <div class="margin-sm">
                 <label for="number" class="form-label">Number (id)</label>
-                <input type="text" class="form-control" required id="number" name="number">
+                <input type="text" class="form-control" pattern="\d+-\d+" required id="number" name="number">
             </div>
             <div class="margin-sm">
                 <label for="name" class="form-label">Name</label>
@@ -143,6 +143,10 @@
             <div class="margin-sm">
                 <label for="nin" class="form-label">National Insurance Number </label>
                 <input type="text" class="form-control"  id="nin" name="nin">
+            </div>
+            <div class="margin-sm">
+                <label for="ManagerEmpNumber" class="form-label">Manager Number (id)</label>
+                <input type="text" class="form-control"  id="ManagerEmpNumber" name="ManagerEmpNumber">
             </div>
             <div class="margin-sm">
                 <label for="eName" class="form-label">Emergency Contact Name</label>

@@ -19,7 +19,7 @@ function createManagerTable()
     global $pdo;
     $sql = "
         CREATE TABLE IF NOT EXISTS Manager(
-            EmployeeNumber INT NOT NULL,
+            EmployeeNumber VARCHAR(20) NOT NULL,
             PRIMARY KEY(EmployeeNumber)
         );
         ";
@@ -87,7 +87,7 @@ function createEmployeeTable()
                 Salary DOUBLE NOT NULL,
                 DOB DATE NOT NULL,
                 NIN VARCHAR(12) NOT NULL,
-                ManagerEmpNumber INT,
+                ManagerEmpNumber VARCHAR(20),
                 DepartmentNumber INT,
                 EPhone VARCHAR(30) NOT NULL,
                 ERelationship VARCHAR(100) NOT NULL,
@@ -109,7 +109,7 @@ function createDepartmentTable()
             CREATE TABLE IF NOT EXISTS Department(
                 DepartmentNumber INT NOT NULL,
                 Name VARCHAR(200) NOT NULL,
-                ManagerEmployeeNumber INT,
+                ManagerEmployeeNumber VARCHAR(20),
                 PRIMARY KEY(DepartmentNumber),
                 FOREIGN KEY (ManagerEmployeeNumber) REFERENCES Manager(EmployeeNumber) ON DELETE RESTRICT ON UPDATE RESTRICT
                 
@@ -362,6 +362,17 @@ function createEmployeeDeleteTrigger(){
     ";
     $pdo->exec($sql);
 }
+function createNewManagerTrigger(){
+    global $pdo;
+    $sql = "
+    CREATE TRIGGER `new_manager` AFTER INSERT ON `employee`
+    FOR EACH ROW IF NEW.departmentNumber = 4 THEN
+        INSERT INTO manager
+        VALUES(NEW.Number);
+    END IF
+    ";
+    $pdo->exec($sql);
+}
 function createAuditingTable(){
     global $pdo;
     $sql = "
@@ -458,6 +469,7 @@ createAuditingTable();
 createProductTable();
 createOrderProductsTable();
 createEmployeeDeleteTrigger();
+createNewManagerTrigger();
 createWarehouseProduct();
 createBirthdaysProcedure();
 insertDepartments();

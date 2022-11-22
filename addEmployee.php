@@ -17,4 +17,5 @@
         
     }
     addEmployee($_POST);
+    echo("<h1> Employee added successfully!</h2>");
 ?>
