@@ -17,12 +17,17 @@
                     continue;
                 }
                 $sql = $sql ." ".$key." = ".":".$key."val".", ";
+                
                 $params[$key."val"] = $val;
+                if ($key == "salary"){
+                    $params["salaryval"] = preg_replace("/[^\d\.]/", "", $params["salaryval"]);
+                }
             }
             
             
         }
         $sql = substr($sql, 0, strlen($sql) - 2);
+       
         $sql = $sql . " ";
         $params["number"] = $_POST["number"];
         print_r($params);

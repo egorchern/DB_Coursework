@@ -81,10 +81,10 @@ function createEmployeeTable()
     global $pdo;
     $sql = "
             CREATE TABLE IF NOT EXISTS Employee(
-                Number BIGINT NOT NULL,
+                Number VARCHAR(20) NOT NULL,
                 Name VARCHAR(500) NOT NULL,
                 HomeAddress VARCHAR(1000) NOT NULL,
-                Salary FLOAT NOT NULL,
+                Salary DOUBLE NOT NULL,
                 DOB DATE NOT NULL,
                 NIN VARCHAR(12) NOT NULL,
                 ManagerEmpNumber INT,
@@ -347,6 +347,9 @@ function insertDepartments(){
 }
 function addEmployee($params){
     global $pdo;
+    // $params["number"] = substr($params["number"], 0, 2) . substr($params["number"], 3);
+    $params["salary"] = preg_replace("/[^\d\.]/", "", $params["salary"]);
+    $params["dob"] = date("Y-m-d", strtotime(str_replace('/', '-', $params["dob"])));
     $sql = "
     INSERT INTO employee(Number, Name, HomeAddress, Salary, DOB, NIN, DepartmentNumber, EName, ERelationship, EPhone)
     VALUES(:number, :name, :homeAddress, :salary, :dob, :nin, :departmentNumber, :eName, :eRelationship, :ePhone);
@@ -377,13 +380,13 @@ function insertEmployeeCSV(){
             case ("Driver"):
                 $departmentNumber = 2;
                 break;
-            case ("Managment"):
+            case ("Manager"):
                 $departmentNumber = 4;
                 break;
         }
-        $data[0] = substr($data[0], 0, 2) . substr($data[0], 3);
-        $data[3] = substr($data[3], 1);
-        print_r($data);
+        
+
+        
         $params = [
             "number" => $data[0],
             "name" => $data[1],

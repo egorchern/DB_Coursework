@@ -6,10 +6,10 @@
         echo("
         <table class='employees_table table table-bordered table-hover'>
         <thead>
-            <th>Num</th>
+            <th>Num(id)</th>
             <th>Name</th>
             <th>Home Address</th>
-            <th>Salary</th>
+            <th>£ Salary</th>
             <th>DOB</th>
             <th>NIN</th>
             <th>ManagerEmpNumber</th>
@@ -62,13 +62,21 @@
                 if (count($params) == 0){
                     $sql = $sql . " WHERE ";
                 }
-                $sql = $sql ." ".$key." = ".":".$key."val".", ";
+                
+                if (count($params) > 0){
+                    $sql = $sql ." AND ".$key." = ".":".$key."val  " ;
+                }
+                else{
+                    $sql = $sql ." ".$key." = ".":".$key."val  " ;
+                }
                 $params[$key."val"] = $val;
             }
             
             
         }
-        $sql = substr($sql, 0, strlen($sql) - 2);
+        // $sql = substr($sql, 0, strlen($sql) - 2);
+        $sql = $sql . " ORDER BY Number;";
+        echo $sql;
         $stmt = $pdo->prepare($sql);
         $stmt->execute($params);
         formatEmployeeAsTable($stmt);
