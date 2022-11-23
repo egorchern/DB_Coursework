@@ -20,6 +20,7 @@ function createManagerTable()
     $sql = "
         CREATE TABLE IF NOT EXISTS Manager(
             EmployeeNumber VARCHAR(20) NOT NULL,
+            Name VARCHAR(500) NOT NULL,
             PRIMARY KEY(EmployeeNumber)
         );
         ";
@@ -349,7 +350,10 @@ function createBirthdaysProcedure(){
     global $pdo;
     $sql = "
     CREATE PROCEDURE `getEmployeesWithBirthdayM`()
-    SELECT * FROM employee WHERE MONTH(DOB) = MONTH(CURDATE()) ORDER BY DOB
+    SELECT employee.*, manager.Name as ManagerName
+    FROM employee
+    JOIN manager ON employee.ManagerEmpNumber = manager.EmployeeNumber
+    WHERE MONTH(DOB) = MONTH(CURDATE()) ORDER BY DOB
     ";
     $pdo->exec($sql);
 }
@@ -357,7 +361,7 @@ function createEmployeeDeleteTrigger(){
     global $pdo;
     $sql = "
     CREATE TRIGGER `insert_termination_audit` BEFORE DELETE ON `employee`
-    FOR EACH ROW INSERT INTO terminationaudit
+    FOR EACH ROW INSERT INTO terminationaudit(dateTerminated, timeTerminated, terminatedEmpNumber, terminatingEmpNumber)
     VALUES(CURRENT_DATE, CURRENT_TIME, OLD.Number, OLD.ManagerEmpNumber)
     ";
     $pdo->exec($sql);
@@ -368,8 +372,16 @@ function createNewManagerTrigger(){
     CREATE TRIGGER `new_manager` AFTER INSERT ON `employee`
     FOR EACH ROW IF NEW.departmentNumber = 4 THEN
         INSERT INTO manager
-        VALUES(NEW.Number);
+        VALUES(NEW.Number, NEW.Name);
     END IF
+    ";
+    $pdo->exec($sql);
+}
+function assignRandomManager(){
+    global $pdo;
+    $sql = "
+    UPDATE employee
+    SET ManagerEmpNumber = (SELECT EmployeeNumber FROM manager ORDER BY RAND() LIMIT 1);
     ";
     $pdo->exec($sql);
 }
@@ -377,11 +389,12 @@ function createAuditingTable(){
     global $pdo;
     $sql = "
     CREATE TABLE TerminationAudit(
-        curDate DATE NOT NULL,
-        curTime TIME NOT NULL,
         terminatedEmpNumber VARCHAR(20) NOT NULL,
         terminatingEmpNumber VARCHAR(20),
-        PRIMARY KEY(terminatedEmpNumber, curDate, curTime)
+        dateTerminated DATE NOT NULL,
+        timeTerminated TIME NOT NULL,
+
+        PRIMARY KEY(terminatedEmpNumber, dateTerminated, timeTerminated)
     );
     ";
     $pdo->exec($sql);
@@ -474,4 +487,5 @@ createWarehouseProduct();
 createBirthdaysProcedure();
 insertDepartments();
 insertEmployeeCSV();
+assignRandomManager();
 ?>

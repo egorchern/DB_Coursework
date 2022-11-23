@@ -4,7 +4,7 @@
     $pdo->exec("USE kilburnazon");
     function deleteEmployee(){
         global $pdo;
-        
+        print_r($_POST);
         $sql = "
         DELETE FROM Employee
         WHERE Number = :number

@@ -240,6 +240,24 @@
             
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
+        <form action="showTerminationAudit.php" class="shadow" method="POST">
+            <h2 style="width:100%;text-align:center">Search termination audits</h2>
+            <p style="width:100%;text-align:center">Blank fields will be ignored when searching</p>
+            <div class="margin-sm">
+                <label for="terminatedEmpNumber" class="form-label">Terminated employee number (id)</label>
+                <input type="text" class="form-control" id="terminatedEmpNumber" name="terminatedEmpNumber">
+            </div>
+            <div class="margin-sm">
+                <label for="dateTerminated" class="form-label">Date terminated</label>
+                <input type="curDate" class="form-control"  id="dateTerminated" name="dateTerminated">
+            </div>
+            <div class="margin-sm">
+                <label for="terminatingEmpNumber" class="form-label">Terminating employee number (id)</label>
+                <input type="text" class="form-control" id="terminatingEmpNumber" name="terminatingEmpNumber">
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
     </main>
 
 </body>

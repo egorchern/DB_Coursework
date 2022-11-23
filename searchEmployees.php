@@ -2,55 +2,13 @@
     $pdo = new pdo('mysql:host=localhost', 'root', '123qweasdzxc');
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
     $pdo->exec("USE kilburnazon");
-    function formatEmployeeAsTable($stmt){
-        echo("
-        <table class='employees_table table table-bordered table-hover'>
-        <thead>
-            <th>Num(id)</th>
-            <th>Name</th>
-            <th>Home Address</th>
-            <th>£ Salary</th>
-            <th>DOB</th>
-            <th>NIN</th>
-            <th>ManagerEmpNumber</th>
-            <th>Department</th>
-            <th>eName</th>
-            <th>eRelationship</th>
-            <th>ePhone</th>
-        </thead>
-        <tbody class='table-group-divider'>
-        
-        ");
-        while($data = $stmt->fetch(PDO::FETCH_ASSOC)){
-            echo("<tr>");
-            foreach ($data as $key => $val){
-                if($key == "DepartmentNumber"){
-                    switch($val){
-                        case 1:
-                            $val = "HR";
-                            break;
-                        case 2:
-                            $val = "Driver";
-                            break;
-                        case 3:
-                            $val = "Packager";
-                            break;
-                        case 4: 
-                            $val = "Manager";
-                            break;
-                    }
-                }
-                echo("<td>".$val."</td>");
-            }
-            echo("</tr>");
-        }
-        echo("</tbody></table>");
-    }
+    include("formatEmployeesAsTable.php");
     function searchEmployee(){
         global $pdo;
-        
         $sql = "
-        SELECT * FROM Employee   
+        SELECT employee.*, manager.Name as ManagerName
+        FROM employee
+        JOIN manager ON employee.ManagerEmpNumber = manager.EmployeeNumber
         ";
         $params = [];
         // Only consider non empty keys
@@ -75,7 +33,7 @@
             
         }
         // $sql = substr($sql, 0, strlen($sql) - 2);
-        $sql = $sql . " ORDER BY Number;";
+        $sql = $sql . " ORDER BY employee.Number;";
         echo $sql;
         $stmt = $pdo->prepare($sql);
         $stmt->execute($params);
@@ -97,9 +55,9 @@
 <body>
     <h1 style="text-align:center">Matching employees</h1>
     <?php
-        if(count($_POST) != 0){
-            searchEmployee();
-        }
+        
+        searchEmployee();
+        
         
     ?>
 </body>
