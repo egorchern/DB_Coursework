@@ -40,3 +40,4 @@
     }
     updateEmployee();
 ?>
+<h1>Employee successfully updated</h1>

@@ -15,3 +15,4 @@
     }
     deleteEmployee();
 ?>
+<h1>Employee Successfully deleted</h1>

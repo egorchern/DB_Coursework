@@ -102,7 +102,7 @@
             </div>
             <div class="margin-sm">
                 <label for="ePhone" class="form-label">Emergency Contact Phone Number</label>
-                <input type="text" class="form-control" required id="ePhone" name="ePhone">
+                <input type="number" class="form-control" min="0" required id="ePhone" name="ePhone">
             </div>
             <div class="margin-sm">
                 <label for="departmentNumber" class="form-label">Department</label>
