@@ -37,9 +37,12 @@
             margin-left: auto;
             margin-right: auto;
             margin-top: 3rem;
+            margin-bottom: 3rem;
             display: flex;
             flex-direction: row;
             justify-content: flex-start;
+            row-gap: 0.4rem;
+            column-gap: 0.3rem;
             flex-wrap: wrap;
             align-items: center;
             border: 1px solid hsl(0, 0%, 80%);
@@ -55,7 +58,8 @@
             flex-wrap: wrap;
         }
         .margin-sm {
-            margin: 0.4rem;
+            margin: 0.25rem;
+            flex-grow:1;
         }
     </style>
 </head>
@@ -114,7 +118,10 @@
                     <option value="4">Manager</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div style="width:100%;display:flex;justify-content:center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+            
         </form>
 
         <form action="updateEmployee.php" class="shadow" method="POST">
@@ -171,7 +178,9 @@
                     <option value="4">Manager</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div style="width:100%;display:flex;justify-content:center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
         </form>
         <form action="searchEmployees.php" class="shadow" method="POST">
             <h2 style="width:100%;text-align:center">Search employees</h2>
@@ -210,7 +219,7 @@
             </div>
             <div class="margin-sm">
                 <label for="ePhone" class="form-label">Emergency Contact Phone Number</label>
-                <input type="text" class="form-control"  id="ePhone" name="ePhone">
+                <input type="text" type="number" class="form-control" min="0"  id="ePhone" name="ePhone">
             </div>
             <div class="margin-sm">
                 <label for="departmentNumber" class="form-label">Department</label>
@@ -223,7 +232,9 @@
                     <option value="4">Manager</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div style="width:100%;display:flex;justify-content:center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
         </form>
         <form action="deleteEmployee.php" class="shadow" method="POST">
             <h2 style="width:100%;text-align:center">Delete Employee</h2>
@@ -232,13 +243,17 @@
                 <input type="text" class="form-control" required id="number" name="number">
             </div>
             
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div style="width:100%;display:flex;justify-content:center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
         </form>
         <form action="showBirthdayEmp.php" class="shadow" method="POST">
             <h2 style="width:100%;text-align:center">Show employees with birthdays soon</h2>
             <p style="width:100%;text-align:center">Shows employees that have birthday in the current month</p>
             
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div style="width:100%;display:flex;justify-content:center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
         </form>
         <form action="showTerminationAudit.php" class="shadow" method="POST">
             <h2 style="width:100%;text-align:center">Search termination audits</h2>
@@ -256,7 +271,9 @@
                 <input type="text" class="form-control" id="terminatingEmpNumber" name="terminatingEmpNumber">
             </div>
             
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div style="width:100%;display:flex;justify-content:center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
         </form>
     </main>
 

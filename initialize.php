@@ -321,6 +321,7 @@ function insertDepartment($department){
     $stmt = $pdo->prepare($sql);
     $stmt->execute($department);
 }
+
 function insertDepartments(){
     global $pdo;
     $departments = [
@@ -353,7 +354,7 @@ function createBirthdaysProcedure(){
     SELECT employee.*, manager.Name as ManagerName
     FROM employee
     JOIN manager ON employee.ManagerEmpNumber = manager.EmployeeNumber
-    WHERE MONTH(DOB) = MONTH(CURDATE()) ORDER BY DOB
+    WHERE MONTH(DOB) = MONTH(CURDATE()) ORDER BY Number
     ";
     $pdo->exec($sql);
 }
